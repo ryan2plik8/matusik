@@ -1,0 +1,10 @@
+<h1>Create a new licence</h1>
+<div class="licenceForm">
+
+	<%= form_for([@user, @user.licences.build]) do |f| %>
+		<%= f.label :licence_name %>
+		<%= f.text_field :licence_name %>
+
+		<%= f.submit %>
+	<% end %>
+</div>

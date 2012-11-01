@@ -1,0 +1,17 @@
+<h1>Add a document</h1>
+
+<div class="documentForm">
+	<%= form_for @document do |f| %>
+		
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+
+		<%= f.file_field :document %>
+
+		<%= f.submit %>
+
+	<% end %>
+</div>

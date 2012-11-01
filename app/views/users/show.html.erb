@@ -1,0 +1,31 @@
+
+
+<div class="documents">
+	<h2>Documents Available</h2>
+	<ul class="document">
+	<% @documents.each do |document| %>
+
+	<li>
+		<h3><%= document.title %></h3><br/>
+		<%= document.description %><br/>
+		<%= link_to "Document Download", document.document_url, target: "_blank" %>
+		<%= form_tag("/users/#{@user.id}/pdf", method: "post") do %>
+		<% @user.licences.each do |l| %>
+			<%= hidden_field_tag(:document_url, document.document_url) %>
+			<%= label_tag(:licence, l.licence_name) %>
+			<%= check_box_tag(:licence) %>
+		<% end %>
+			<%= submit_tag("Send to licences") %>
+		<% end %>
+	</li>
+
+	<% end %>
+</div><!-- end documents -->
+
+<div class="licences">
+	<h2>Your Licences</h2>
+	<% @user.licences.each do |l| %>
+		<h3><%= l.licence_name %></h3>
+	<% end %>
+	<%= link_to "New Licence", new_user_licence_path(@user), class: "button" %>
+</div> <!-- end licences -->
