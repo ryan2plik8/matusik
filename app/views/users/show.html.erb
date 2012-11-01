@@ -3,17 +3,17 @@
 <div class="documents">
 	<h2>Documents Available</h2>
 	<ul class="document">
-	<% @documents.each do |document| %>
+	<% @documents.each_with_index do |document, i| %>
 
 	<li>
 		<h3><%= document.title %></h3><br/>
 		<%= document.description %><br/>
 		<%= link_to "Document Download", document.document_url, target: "_blank" %>
-		<%= form_tag("/users/#{@user.id}/pdf", method: "post") do %>
+		<%= form_tag("/users/#{@user.id}/pdf", method: "post", id: "form_#{i}") do %>
 		<% @user.licences.each do |l| %>
 			<%= hidden_field_tag(:document_url, document.document_url) %>
-			<%= label_tag(:licence, l.licence_name) %>
-			<%= check_box_tag(:licence) %>
+			<%= label_tag("licence_#{l.id}_form#{i}", l.licence_name) %>
+			<%= check_box_tag "licence[licence_ids][]", l.licence_name, false, id: "licence_#{l.id}_form#{i}" %>
 		<% end %>
 			<%= submit_tag("Send to licences") %>
 		<% end %>
